@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <main>
+      <Header :cart="cart"/>
+      <div class="app-home">
+        <Home @additem="onAddToCart($event)" @removeitem="onRemoveItem($event)"/>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Home from "./components/Home";
+import Header from "./components/Header";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    Home,
+    Header
+  },
+  data() {
+    return {
+      cart: []
+    };
+  },
+  methods: {
+    onAddToCart(item) {
+      this.cart = this.cart.concat(item);
+    },
+    onRemoveItem(item) {
+      this.cart = this.cart.filter(product => product.name !== item.name);
+    }
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Muli", sans-serif;
+  background-color: whitesmoke;
 }
 </style>
